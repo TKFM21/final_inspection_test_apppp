@@ -69,10 +69,10 @@ Route::group(['middleware' => ['auth', 'can:system-only']], function () {
 Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
     
     // Registration Routes...
-    //Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-    //Route::post('register', 'Auth\RegisterController@register');
+    Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+    Route::post('register', 'Auth\RegisterController@register');
 
 });
 
-Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('register', 'Auth\RegisterController@register');
+//Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+//Route::post('register', 'Auth\RegisterController@register');
