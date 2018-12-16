@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Events\Logined;
 
 class LoginController extends Controller
 {
@@ -25,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -35,5 +37,21 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * ログイン認証後の処理
+     * @param Request $request
+     * @param $user
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        // ログインイベントを発火させ最終ログイン日時を記録する
+        event(new Logined());
+    }
+    
+    public function username()
+    {
+      return 'code';
     }
 }

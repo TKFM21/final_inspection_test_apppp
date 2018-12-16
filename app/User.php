@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'code', 'name', 'gender_id', 'email', 'password', 'department_id', 'role_id', 
     ];
 
     /**
@@ -26,4 +26,39 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    public function gender()
+    {
+        return $this->belongsTo(Gender::class);
+    }
+    
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+    
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+    
+    public function katabans_application_users()
+    {
+        return $this->hasMany(Kataban::class, 'application_user_id');
+    }
+    
+    public function katabans_confirmed_users()
+    {
+        return $this->hasMany(Kataban::class, 'confirmed_user_id');
+    }
+    
+    public function katabans_approval_users()
+    {
+        return $this->hasMany(Kataban::class, 'approval_user_id');
+    }
+    
+    public function final_inspection_records()
+    {
+        return $this->hasMany(FinalInspectionRecord::class, 'inspector_id');
+    }
 }
